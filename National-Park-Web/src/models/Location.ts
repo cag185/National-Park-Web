@@ -6,7 +6,8 @@ export class Location {
     latitude?: number
     longitude?: number
 
-    constructor(id: string, 
+    constructor(
+        id: string, 
         name: string,
         description?: string, 
         imageUrl?: string, 

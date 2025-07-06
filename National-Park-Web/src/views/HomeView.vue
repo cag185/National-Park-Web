@@ -15,8 +15,8 @@
         Latitude: {{ location.location.latitude }}, Longitude: {{ location.location.longitude }}
       </p>
       <div class="flex flex-row pt-2 items-center space-x-4">
-        <button class="beenThere" @click="addBeenThere(location)"">Add to Been There</button>
-        <button class="wantToGo" @click="addWantTo(location)" >Add to Want to Go</button>
+        <button class="beenThere" @click="addBeenThere(location)">Add to Been There</button>
+        <button class="wantToGo" @click="addWantTo(location)">Add to Want to Go</button>
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@ import { Location } from '@/models/Location'
 const user = new User('Caleb')
 // Mock data from a API call.
 const sampleLocation = {
-  id: "1",
+  id: '1',
   name: 'Yosemite National Park',
   description: 'A beautiful national park in California.',
   location: {
@@ -54,17 +54,17 @@ const getParkData = () => {
 }
 
 const addBeenThere = (location: Location) => {
-  user.addExisitngLocation(location);
+  user.addExisitngLocation(location)
 
   // Testing.
-  console.log('Been there locations:', user.existingLocations);
+  console.log('Been there locations:', user.existingLocations)
 }
 
 // Want to go.
 const addWantTo = (location: Location) => {
-  user.addExisitngLocation(location);
+  user.addExisitngLocation(location)
 
   // Testing.
-  console.log('Want to go locations:', user.newLocations);
+  console.log('Want to go locations:', user.newLocations)
 }
 </script>

@@ -33,7 +33,7 @@ export class User {
         if(this.newLocations.some(loc => loc.id === location.id)) 
         {
             // removes the location from new.
-            this.newLocations = this.newLocations.filter(loc => loc.id !== location.id);
+            this.removeLocation(location, true);
         }
     }
 
