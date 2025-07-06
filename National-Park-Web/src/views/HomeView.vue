@@ -2,6 +2,7 @@
   <div class="text-center">
     <button @click="getParkData">Click here to load the parks</button>
   </div>
+  <UserLocationDisplay />
   <div class="flex justify-center pt-8 space-y-2">
     <div
       v-for="location in locations"
@@ -27,6 +28,7 @@
 import { ref } from 'vue'
 import { User } from '@/models/User'
 import { Location } from '@/models/Location'
+import UserLocationDisplay from './UserLocationDisplay.vue'
 
 // DATA SECTION
 // Instantiate a user.
