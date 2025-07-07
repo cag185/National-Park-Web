@@ -1,6 +1,8 @@
 <template>
   <div class="text-center">
-    <button class="button" @click="getParkData">Click here to load the parks</button>
+    <button v-if="!loaded" class="button" @click="getParkData()">
+      Click here to load the parks
+    </button>
   </div>
   <UserLocationDisplay :user="user" />
   <div class="flex justify-center pt-8 space-y-2">
@@ -47,12 +49,15 @@ const sampleLocation = {
 // Locations.
 const locations = ref<Array<typeof sampleLocation>>([])
 
+const loaded = ref(false)
+
 // Methods section
 // Create a method to load the park API data.
 const getParkData = () => {
   // @todo - make API call.
   // console.log('Calling API...')
   locations.value.push(sampleLocation)
+  loaded.value = true
 }
 
 const addBeenThere = (location: Location) => {
