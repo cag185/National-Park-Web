@@ -9,7 +9,7 @@
     <div
       v-for="location in locations"
       :key="location.name"
-      class="border p-4 bg-white rounded-xl shadow-md border-gray-300"
+      class="border p-4 bg-white rounded-xl ring-3 ring-lime-700/75 border-gray-300"
     >
       <h2 class="text-xl text-black font-bold">{{ location.name }}</h2>
       <p class="text-black">{{ location.description }}</p>

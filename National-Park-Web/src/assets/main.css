@@ -21,11 +21,11 @@ body {
   
 
 .beenThere {
-    @apply bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700;
+    @apply bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 shadow-amber-800 shadow-md;
 }
 
 .wantToGo {
-    @apply bg-lime-600 text-white px-4 py-2 rounded hover:bg-lime-700;
+    @apply bg-lime-600 text-white px-4 py-2 rounded hover:bg-lime-700 shadow-lime-800 shadow-md;
 }
 
 .p-drawer-header {
