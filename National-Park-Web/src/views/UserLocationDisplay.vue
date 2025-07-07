@@ -27,7 +27,7 @@
 
     <button
       v-if="!visible"
-      class="pi pi-arrow-right p-2 rounded-lg bg-blue-500 text-white"
+      class="pi pi-align-justify p-2 absolute top-3 right-3 rounded-lg bg-blue-500 text-white"
       @click="toggleVisible"
     ></button>
   </div>

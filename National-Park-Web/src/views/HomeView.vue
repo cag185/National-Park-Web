@@ -5,7 +5,7 @@
     </button>
   </div>
   <UserLocationDisplay :user="user" />
-  <div class="flex justify-center pt-8 space-y-2">
+  <div class="flex flex-col justify-center items-center pt-8 space-y-2">
     <div
       v-for="location in locations"
       :key="location.name"
@@ -46,6 +46,17 @@ const sampleLocation = {
   },
   imageUrl: '@/assets/Yosemite.jpeg',
 }
+
+const sampleLocation2 = {
+  id: '2',
+  name: 'Arches National Park',
+  description: 'A beautiful national park in Utah.',
+  location: {
+    latitude: 1234,
+    longitude: -100,
+  },
+  imageUrl: '@/assets/Arches.jpeg',
+}
 // Locations.
 const locations = ref<Array<typeof sampleLocation>>([])
 
@@ -57,6 +68,7 @@ const getParkData = () => {
   // @todo - make API call.
   // console.log('Calling API...')
   locations.value.push(sampleLocation)
+  locations.value.push(sampleLocation2)
   loaded.value = true
 }
 
