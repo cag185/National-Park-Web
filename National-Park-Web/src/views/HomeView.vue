@@ -5,7 +5,7 @@
     </button>
   </div>
   <UserLocationDisplay :user="user" />
-  <div class="flex flex-col justify-center items-center pt-8 space-y-2">
+  <div class="flex flex-col justify-center items-center pt-8 space-y-4">
     <div
       v-for="location in locations"
       :key="location.name"

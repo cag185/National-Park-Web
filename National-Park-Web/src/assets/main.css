@@ -8,7 +8,7 @@
 @import "tailwindcss";
 
 body {
-    @apply bg-lime-700;
+    @apply bg-zinc-800;
 }
 
 .button {
