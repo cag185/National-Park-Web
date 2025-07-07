@@ -11,9 +11,14 @@ body {
     @apply bg-lime-700;
 }
 
-button {
+.button {
     @apply bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600;
 }
+
+.all-unset {
+    @apply bg-white text-black;
+  }
+  
 
 .beenThere {
     @apply bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700;

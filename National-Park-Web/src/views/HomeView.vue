@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <button @click="getParkData">Click here to load the parks</button>
+    <button class="button" @click="getParkData">Click here to load the parks</button>
   </div>
   <UserLocationDisplay />
   <div class="flex justify-center pt-8 space-y-2">
