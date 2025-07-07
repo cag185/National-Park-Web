@@ -2,7 +2,7 @@
   <div class="text-center">
     <button class="button" @click="getParkData">Click here to load the parks</button>
   </div>
-  <UserLocationDisplay />
+  <UserLocationDisplay :user="user" />
   <div class="flex justify-center pt-8 space-y-2">
     <div
       v-for="location in locations"
@@ -64,7 +64,7 @@ const addBeenThere = (location: Location) => {
 
 // Want to go.
 const addWantTo = (location: Location) => {
-  user.addExisitngLocation(location)
+  user.addNewLocation(location)
 
   // Testing.
   console.log('Want to go locations:', user.newLocations)

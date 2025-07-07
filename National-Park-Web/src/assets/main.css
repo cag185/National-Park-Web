@@ -28,3 +28,17 @@ body {
     @apply bg-lime-600 text-white px-4 py-2 rounded hover:bg-lime-700;
 }
 
+.p-drawer-header {
+    padding: 0;
+}
+/* Make the drawer overlay opaque + blurry */
+.p-overlay-mask {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(8px) !important;
+}  
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
