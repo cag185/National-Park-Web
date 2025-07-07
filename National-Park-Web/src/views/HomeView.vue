@@ -5,19 +5,21 @@
     </button>
   </div>
   <UserLocationDisplay :user="user" />
-  <div class="flex flex-col justify-center items-center pt-8 space-y-4">
+  <div v-if="loaded" class="flex flex-col justify-center items-center pt-8 space-y-8">
     <div
       v-for="location in locations"
       :key="location.name"
-      class="border p-4 bg-white rounded-xl ring-3 ring-lime-700/75 border-gray-300"
+      class="border p-4 bg-white rounded-xl ring-10 ring-lime-700/75 border-gray-300 w-1/2 h-1/2"
     >
       <h2 class="text-xl text-black font-bold">{{ location.name }}</h2>
       <p class="text-black">{{ location.description }}</p>
-      <img :src="location.imageUrl" alt="Park Image" class="w-full h-auto mt-2 rounded-lg" />
+      <div class="flex justify-center items-center">
+        <img :src="location.imageUrl" alt="Park Image" class="w-3/4 h-auto mt-2 rounded-lg" />
+      </div>
       <p class="text-sm text-black-500 mt-2">
-        Latitude: {{ location.location.latitude }}, Longitude: {{ location.location.longitude }}
+        Latitude: {{ location.latitude }}, Longitude: {{ location.longitude }}
       </p>
-      <div class="flex flex-row pt-2 items-center space-x-4">
+      <div class="flex flex-row justify-center items-center pt-2 space-x-4">
         <button class="beenThere" @click="addBeenThere(location)">Add to Been There</button>
         <button class="wantToGo" @click="addWantTo(location)">Add to Want to Go</button>
       </div>
@@ -27,48 +29,26 @@
 
 <script setup lang="ts">
 // Imports.
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { User } from '@/models/User'
 import { Location } from '@/models/Location'
 import UserLocationDisplay from './UserLocationDisplay.vue'
+import { getParks } from '@/Api/parks'
 
 // DATA SECTION
 // Instantiate a user.
 const user = new User('Caleb')
 // Mock data from a API call.
-const sampleLocation = {
-  id: '1',
-  name: 'Yosemite National Park',
-  description: 'A beautiful national park in California.',
-  location: {
-    latitude: 37.8651,
-    longitude: -119.5383,
-  },
-  imageUrl: '@/assets/Yosemite.jpeg',
-}
 
-const sampleLocation2 = {
-  id: '2',
-  name: 'Arches National Park',
-  description: 'A beautiful national park in Utah.',
-  location: {
-    latitude: 1234,
-    longitude: -100,
-  },
-  imageUrl: '@/assets/Arches.jpeg',
-}
 // Locations.
-const locations = ref<Array<typeof sampleLocation>>([])
+const locations = ref<Array<Location>>([])
 
 const loaded = ref(false)
 
 // Methods section
 // Create a method to load the park API data.
 const getParkData = () => {
-  // @todo - make API call.
-  // console.log('Calling API...')
-  locations.value.push(sampleLocation)
-  locations.value.push(sampleLocation2)
+  console.log('Calling API...')
   loaded.value = true
 }
 
@@ -86,4 +66,17 @@ const addWantTo = (location: Location) => {
   // Testing.
   console.log('Want to go locations:', user.newLocations)
 }
+
+// On Mounted
+onMounted(async () => {
+  try {
+    const parks = await getParks()
+    console.log(parks)
+    parks.forEach((park) => {
+      locations.value.push(park)
+    })
+  } catch (error) {
+    console.error('Error fetching parks:', error)
+  }
+})
 </script>
