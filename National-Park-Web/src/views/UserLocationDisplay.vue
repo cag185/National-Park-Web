@@ -1,7 +1,7 @@
 <template>
   <div class="card flex justify-end px-4 p-0">
     <Drawer v-model:visible="visible" position="right" class="w-80" modal dismissable>
-      <div class="absolute top-0 left-0 w-full h-full flex flex-col items-center bg-zinc-700">
+      <div class="absolute top-0 left-0 w-full h-full flex flex-col items-center">
         <button
           class="pi pi-arrow-left p-2 rounded-lg bg-blue-500 text-white absolute left-0"
           @click="toggleVisible"

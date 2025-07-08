@@ -18,7 +18,7 @@ export const getParks = async (): Promise<Location[]> => {
             park.id,
             park.fullName,
             park.description,
-            park.images?.[0]?.url || '',
+            park.images?.slice(0, 4).map((image: any) => image.url) || [],
             parseFloat(park.latitude),
             parseFloat(park.longitude)
         ));

@@ -2,7 +2,7 @@ export class Location {
     id: string
     name: string
     description?: string
-    imageUrl?: string
+    imageUrls?: string[]
     latitude?: number
     longitude?: number
 
@@ -10,7 +10,7 @@ export class Location {
         id: string, 
         name: string,
         description?: string, 
-        imageUrl?: string, 
+        imageUrls?: string[], 
         latitude?: number, 
         longitude?: number
     )
@@ -18,7 +18,7 @@ export class Location {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.imageUrls = imageUrls || [];
         this.latitude = latitude;
         this.longitude = longitude;
     }

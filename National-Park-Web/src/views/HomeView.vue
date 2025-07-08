@@ -1,4 +1,11 @@
 <template>
+  <div class="absolute top-0 -z-1">
+    <img
+      src="@/assets/background.jpg"
+      alt="National Park Banner"
+      class="fixed top-0 left-0 w-screen h-screen bg-cover object-cover opacity-60"
+    />
+  </div>
   <div class="text-center">
     <button v-if="!loaded" class="button" @click="getParkData()">
       Click here to load the parks
@@ -9,12 +16,13 @@
     <div
       v-for="location in locations"
       :key="location.name"
-      class="border p-4 bg-white rounded-xl ring-10 ring-lime-700/75 border-gray-300 w-1/2 h-1/2"
+      class="border p-4 bg-white rounded-xl ring-5 ring-lime-700/75 border-gray-300 w-1/2 h-1/2 flex flex-col space-y-4"
     >
       <h2 class="text-xl text-black font-bold">{{ location.name }}</h2>
       <p class="text-black">{{ location.description }}</p>
       <div class="flex justify-center items-center">
-        <img :src="location.imageUrl" alt="Park Image" class="w-3/4 h-auto mt-2 rounded-lg" />
+        <!-- <img :src="location.imageUrl" alt="Park Image" class="w-3/4 h-auto mt-2 rounded-lg" /> -->
+        <ImageCarousel :images="location.imageUrls ?? []" />
       </div>
       <p class="text-sm text-black-500 mt-2">
         Latitude: {{ location.latitude }}, Longitude: {{ location.longitude }}
@@ -34,6 +42,7 @@ import { User } from '@/models/User'
 import { Location } from '@/models/Location'
 import UserLocationDisplay from './UserLocationDisplay.vue'
 import { getParks } from '@/Api/parks'
+import ImageCarousel from '@/components/imageCarousel.vue'
 
 // DATA SECTION
 // Instantiate a user.
