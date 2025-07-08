@@ -13,6 +13,12 @@
   </div>
   <UserLocationDisplay :user="user" />
   <div v-if="loaded" class="flex flex-col justify-center items-center pt-8 space-y-8">
+    <input
+      type="text"
+      class="bg-white rounded-2xl p-1 w-1/4 text-center"
+      v-model="searchText"
+      placeholder="Search a Park Name"
+    />
     <div
       v-for="location in locations"
       :key="location.name"
@@ -37,7 +43,7 @@
 
 <script setup lang="ts">
 // Imports.
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { User } from '@/models/User'
 import { Location } from '@/models/Location'
 import UserLocationDisplay from './UserLocationDisplay.vue'
@@ -47,10 +53,13 @@ import ImageCarousel from '@/components/imageCarousel.vue'
 // DATA SECTION
 // Instantiate a user.
 const user = new User('Caleb')
-// Mock data from a API call.
+
+// Search text for the park search.
+const searchText = ref('')
 
 // Locations.
 const locations = ref<Array<Location>>([])
+const originalLocations = ref<Array<Location>>([])
 
 const loaded = ref(false)
 
@@ -80,12 +89,22 @@ const addWantTo = (location: Location) => {
 onMounted(async () => {
   try {
     const parks = await getParks()
-    console.log(parks)
     parks.forEach((park) => {
       locations.value.push(park)
+      originalLocations.value.push(park)
     })
   } catch (error) {
     console.error('Error fetching parks:', error)
+  }
+})
+watch(searchText, (newValue) => {
+  if (newValue.length > 0) {
+    locations.value = originalLocations.value.filter((location) =>
+      location.name.toLowerCase().includes(newValue.toLowerCase()),
+    )
+  } else {
+    // Reset to original list if search text is cleared
+    locations.value = [...originalLocations.value]
   }
 })
 </script>
