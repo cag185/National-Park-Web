@@ -1,4 +1,11 @@
 <template>
+  <div class="flex justify-center p-4">
+    <div
+      class="flex text-white justify-center rounded-3xl w-1/2 text-5xl p-4 py-8 text-shadow-lg text-shadow-cyan-500"
+    >
+      Welcome to the National Park App!
+    </div>
+  </div>
   <div class="absolute top-0 -z-1">
     <img
       src="@/assets/background.jpg"
@@ -6,11 +13,18 @@
       class="fixed top-0 left-0 w-screen h-screen bg-cover object-cover opacity-60"
     />
   </div>
-  <div class="text-center">
-    <button v-if="!loaded" class="button" @click="getParkData()">
-      Click here to load the parks
-    </button>
+  <div class="flex justify-center flex-row space-x-4">
+    <div class="text-center">
+      <button v-if="!loaded" class="button" @click="getParkData()">
+        Click here to load the parks
+      </button>
+    </div>
+
+    <div class="text-center">
+      <button class="alt-button" @click="goToMap()">Click to check out the Park Map</button>
+    </div>
   </div>
+
   <UserLocationDisplay :user="user" />
   <div v-if="loaded" class="flex flex-col justify-center items-center pt-8 space-y-8">
     <input
@@ -49,6 +63,7 @@ import { Location } from '@/models/Location'
 import UserLocationDisplay from './UserLocationDisplay.vue'
 import { getParks } from '@/Api/parks'
 import ImageCarousel from '@/components/imageCarousel.vue'
+import { useRouter } from 'vue-router'
 
 // DATA SECTION
 // Instantiate a user.
@@ -107,4 +122,10 @@ watch(searchText, (newValue) => {
     locations.value = [...originalLocations.value]
   }
 })
+
+const router = useRouter()
+// Function to go to the map.
+const goToMap = () => {
+  router.push('/maps')
+}
 </script>
