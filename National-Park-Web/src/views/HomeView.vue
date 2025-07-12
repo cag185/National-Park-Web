@@ -41,7 +41,6 @@
       <h2 class="text-xl text-black font-bold">{{ location.name }}</h2>
       <p class="text-black">{{ location.description }}</p>
       <div class="flex justify-center items-center">
-        <!-- <img :src="location.imageUrl" alt="Park Image" class="w-3/4 h-auto mt-2 rounded-lg" /> -->
         <ImageCarousel :images="location.imageUrls ?? []" />
       </div>
       <p class="text-sm text-black-500 mt-2">
@@ -57,13 +56,17 @@
 
 <script setup lang="ts">
 // Imports.
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { User } from '@/models/User'
 import { Location } from '@/models/Location'
 import UserLocationDisplay from './UserLocationDisplay.vue'
 import { getParks } from '@/Api/parks'
 import ImageCarousel from '@/components/imageCarousel.vue'
 import { useRouter } from 'vue-router'
+
+// Pinia store.
+import { useLocationStore } from '@/stores/useLocationStore'
+const locationStore = useLocationStore()
 
 // DATA SECTION
 // Instantiate a user.
@@ -87,17 +90,15 @@ const getParkData = () => {
 
 const addBeenThere = (location: Location) => {
   user.addExisitngLocation(location)
-
-  // Testing.
-  console.log('Been there locations:', user.existingLocations)
+  // Add to pinia store.
+  locationStore.addBeenThereLocation(location)
 }
 
 // Want to go.
 const addWantTo = (location: Location) => {
   user.addNewLocation(location)
-
-  // Testing.
-  console.log('Want to go locations:', user.newLocations)
+  // add to pinia store.
+  locationStore.addWantToGoLocation(location)
 }
 
 // On Mounted
@@ -108,6 +109,8 @@ onMounted(async () => {
       locations.value.push(park)
       originalLocations.value.push(park)
     })
+    // Load the store with the locations.
+    locationStore.setAllLocations(parks)
   } catch (error) {
     console.error('Error fetching parks:', error)
   }

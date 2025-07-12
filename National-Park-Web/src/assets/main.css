@@ -15,14 +15,25 @@ body {
     @apply bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600;
 }
 
+.input {
+    @apply text-white px-1 py-2;
+}
+
 .alt-button {
     @apply bg-lime-600 text-white px-4 py-2 rounded hover:bg-lime-700;   
 }
 
 .all-unset {
     @apply bg-white text-black;
-  }
-  
+}
+
+.beenThereTextColor {
+    @apply text-amber-600;
+}
+
+.wantToGoTextColor {
+    @apply text-lime-600;
+}
 
 .beenThere {
     @apply bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 shadow-amber-800 shadow-md;
