@@ -63,6 +63,7 @@ const markers = computed(() => {
     }
   }
 
+  // Test Comment.
   return allMarkers.value.map((location) => ({
     id: location.id,
     latitude: location.latitude,
