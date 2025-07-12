@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist",
     "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",

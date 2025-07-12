@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { GoogleMap, Marker } from 'vue3-google-map'
 import { googleMapsKey } from '@/secrets/keys.json'
-import { Locations } from '@/models/Locations'
+import { Location } from '@/models/Location'
 import { computed, ref } from 'vue'
 
 // Using the locations store in Pinia.
@@ -50,20 +50,20 @@ const beenThereLocations = ref(locationStore.beenThereLocations)
 const wantToGoLocations = ref(locationStore.wantToGoLocations)
 
 const markers = computed(() => {
-  let allMarkers = []
+  const allMarkers = ref<typeof locationStore.allLocations>([])
 
   if (allChecked.value) {
-    allMarkers = locationStore.allLocations
+    allMarkers.value = locationStore.allLocations
   } else {
     if (beenThereChecked.value) {
-      allMarkers = [...allMarkers, ...locationStore.beenThereLocations]
+      allMarkers.value = [...allMarkers.value, ...locationStore.beenThereLocations]
     }
     if (wantToGoChecked.value) {
-      allMarkers = [...allMarkers, ...locationStore.wantToGoLocations]
+      allMarkers.value = [...allMarkers.value, ...locationStore.wantToGoLocations]
     }
   }
 
-  return allMarkers.map((location) => ({
+  return allMarkers.value.map((location) => ({
     id: location.id,
     latitude: location.latitude,
     longitude: location.longitude,

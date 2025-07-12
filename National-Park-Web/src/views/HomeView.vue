@@ -61,7 +61,7 @@ import { User } from '@/models/User'
 import { Location } from '@/models/Location'
 import UserLocationDisplay from './UserLocationDisplay.vue'
 import { getParks } from '@/Api/parks'
-import ImageCarousel from '@/components/imageCarousel.vue'
+import ImageCarousel from '@/components/ImageCarousel.vue'
 import { useRouter } from 'vue-router'
 
 // Pinia store.

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Location } from '@/types/locations'
+import { Location } from '@/models/Location';
 
 export const useLocationStore = defineStore('location', {
   state: () => ({
