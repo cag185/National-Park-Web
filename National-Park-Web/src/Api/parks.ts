@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { apiKey } from '@/secrets/keys.json';
 import { Location } from '@/models/Location';
+
 const API_BASE_URL = 'https://developer.nps.gov/api/v1/';
 const API_KEY = apiKey;
 
-export const getParks = async (): Promise<Location[]> => {
+export const getParks = async (saveParkStateInStore?: boolean): Promise<Location[]> => {
     const { data } = await axios.get(`${API_BASE_URL}parks`, {
         params: {
             api_key: API_KEY,
-            limit: 300 // Adjust limit as needed
+            limit: 1000 // Adjust limit as needed
         },
     });
 

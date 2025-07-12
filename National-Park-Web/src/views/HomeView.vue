@@ -20,7 +20,7 @@
       </button>
     </div>
 
-    <div class="text-center">
+    <div v-if="loaded" class="text-center">
       <button class="alt-button" @click="goToMap()">Click to check out the Park Map</button>
     </div>
   </div>
@@ -91,14 +91,14 @@ const getParkData = () => {
 const addBeenThere = (location: Location) => {
   user.addExisitngLocation(location)
   // Add to pinia store.
-  locationStore.addBeenThereLocation(location)
+  locationStore.addBeenThere(location)
 }
 
 // Want to go.
 const addWantTo = (location: Location) => {
   user.addNewLocation(location)
   // add to pinia store.
-  locationStore.addWantToGoLocation(location)
+  locationStore.addWantToGo(location)
 }
 
 // On Mounted
