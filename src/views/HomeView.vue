@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center p-4">
     <div
-      class="flex text-white justify-center rounded-3xl w-1/2 text-5xl p-4 py-8 text-shadow-lg text-shadow-cyan-500"
+      class="flex text-white justify-center rounded-3xl w-1/2 text-5xl p-4 py-8 text-shadow-sm text-shadow-blue-300"
     >
       Welcome to the National Park App!
     </div>
@@ -21,12 +21,17 @@
     </div>
 
     <div v-if="loaded" class="text-center">
-      <button class="alt-button" @click="goToMap()">Click to check out the Park Map</button>
+      <button class="alt-button" @click="goToMap()">
+        Click to check out the Park Map
+      </button>
     </div>
   </div>
 
   <UserLocationDisplay :user="user" />
-  <div v-if="loaded" class="flex flex-col justify-center items-center pt-8 space-y-8">
+  <div
+    v-if="loaded"
+    class="flex flex-col justify-center items-center pt-8 space-y-8"
+  >
     <input
       type="text"
       class="bg-white rounded-2xl p-1 w-1/4 text-center"
@@ -47,8 +52,12 @@
         Latitude: {{ location.latitude }}, Longitude: {{ location.longitude }}
       </p>
       <div class="flex flex-row justify-center items-center pt-2 space-x-4">
-        <button class="beenThere" @click="addBeenThere(location)">Add to Been There</button>
-        <button class="wantToGo" @click="addWantTo(location)">Add to Want to Go</button>
+        <button class="beenThere" @click="addBeenThere(location)">
+          Add to Been There
+        </button>
+        <button class="wantToGo" @click="addWantTo(location)">
+          Add to Want to Go
+        </button>
       </div>
     </div>
   </div>
@@ -56,79 +65,79 @@
 
 <script setup lang="ts">
 // Imports.
-import { ref, onMounted, watch, computed } from 'vue'
-import { User } from '@/models/User'
-import { Location } from '@/models/Location'
-import UserLocationDisplay from './UserLocationDisplay.vue'
-import { getParks } from '@/Api/parks'
-import ImageCarousel from '@/components/ImageCarousel.vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, watch, computed } from "vue";
+import { User } from "@/models/User";
+import { Location } from "@/models/Location";
+import UserLocationDisplay from "./UserLocationDisplay.vue";
+import { getParks } from "@/Api/parks";
+import ImageCarousel from "@/components/ImageCarousel.vue";
+import { useRouter } from "vue-router";
 
 // Pinia store.
-import { useLocationStore } from '@/stores/useLocationStore'
-const locationStore = useLocationStore()
+import { useLocationStore } from "@/stores/useLocationStore";
+const locationStore = useLocationStore();
 
 // DATA SECTION
 // Instantiate a user.
-const user = new User('Caleb')
+const user = new User("Caleb");
 
 // Search text for the park search.
-const searchText = ref('')
+const searchText = ref("");
 
 // Locations.
-const locations = ref<Array<Location>>([])
-const originalLocations = ref<Array<Location>>([])
+const locations = ref<Array<Location>>([]);
+const originalLocations = ref<Array<Location>>([]);
 
-const loaded = ref(false)
+const loaded = ref(false);
 
 // Methods section
 // Create a method to load the park API data.
 const getParkData = () => {
-  console.log('Calling API...')
-  loaded.value = true
-}
+  console.log("Calling API...");
+  loaded.value = true;
+};
 
 const addBeenThere = (location: Location) => {
-  user.addExisitngLocation(location)
+  user.addExisitngLocation(location);
   // Add to pinia store.
-  locationStore.addBeenThere(location)
-}
+  locationStore.addBeenThere(location);
+};
 
 // Want to go.
 const addWantTo = (location: Location) => {
-  user.addNewLocation(location)
+  user.addNewLocation(location);
   // add to pinia store.
-  locationStore.addWantToGo(location)
-}
+  locationStore.addWantToGo(location);
+};
 
 // On Mounted
 onMounted(async () => {
   try {
-    const parks = await getParks()
+    const parks = await getParks();
     parks.forEach((park) => {
-      locations.value.push(park)
-      originalLocations.value.push(park)
-    })
+      locations.value.push(park);
+      originalLocations.value.push(park);
+    });
     // Load the store with the locations.
-    locationStore.setAllLocations(parks)
+    locationStore.setAllLocations(parks);
   } catch (error) {
-    console.error('Error fetching parks:', error)
+    console.error("Error fetching parks:", error);
   }
-})
+});
 watch(searchText, (newValue) => {
   if (newValue.length > 0) {
     locations.value = originalLocations.value.filter((location) =>
-      location.name.toLowerCase().includes(newValue.toLowerCase()),
-    )
+      location.name.toLowerCase().includes(newValue.toLowerCase())
+    );
   } else {
     // Reset to original list if search text is cleared
-    locations.value = [...originalLocations.value]
+    locations.value = [...originalLocations.value];
   }
-})
+});
 
-const router = useRouter()
+const router = useRouter();
 // Function to go to the map.
 const goToMap = () => {
-  router.push('/maps')
-}
+  router.push("/maps");
+};
 </script>
