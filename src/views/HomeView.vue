@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 // Imports.
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { User } from "@/models/User";
 import { Location } from "@/models/Location";
 import UserLocationDisplay from "./UserLocationDisplay.vue";
