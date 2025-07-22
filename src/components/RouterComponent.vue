@@ -3,7 +3,7 @@
     <div class="flex space-y-2" v-for="page in pageNames" :key="page.name">
       <router-link
         :to="{ name: page.name }"
-        class="text-white text-3xl hover:text-blue-200"
+        class="text-white text-2xl hover:text-blue-200"
       >
         {{ page.name }}
       </router-link>
