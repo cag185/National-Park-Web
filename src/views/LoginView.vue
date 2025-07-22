@@ -85,7 +85,7 @@ const submitSignUp = () => {
       console.log("User created successfully:", response);
     })
     .catch((error) => {
-      error?.originalError.response?.data?.errors.forEach((error) =>
+      error?.originalError.response?.data?.errors.forEach((error: string) =>
         addError((error ?? "Unknown error").toString())
       );
     });
@@ -93,7 +93,7 @@ const submitSignUp = () => {
 
 const errors = ref<string[]>([]);
 
-const addError = (error) => {
+const addError = (error: string) => {
   errors.value.push(error);
 };
 const clearErrors = () => {
