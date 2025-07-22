@@ -18,7 +18,11 @@
           {{ props.user.name }}'s Parks
         </div>
         <div class="text-2xl text-lime-600 font-bold">Want to Go's</div>
-        <div v-for="location in newLocations" class="flex px-2">
+        <div
+          v-for="location in newLocations"
+          :key="location.id"
+          class="flex px-2"
+        >
           <div class="flex text-lg font-bold text-white">
             <span class="pi pi-map-marker mr-2"></span>
             {{ location.name }}
@@ -26,7 +30,11 @@
         </div>
 
         <div class="text-2xl text-amber-600 font-bold">Been There's</div>
-        <div v-for="location in oldLocations" class="flex px-2">
+        <div
+          v-for="location in oldLocations"
+          :key="location.id"
+          class="flex px-2"
+        >
           <div class="flex text-lg font-bold text-white">
             <span class="pi pi-map-marker mr-2"></span>
             {{ location.name }}
@@ -35,11 +43,13 @@
       </div>
     </Drawer>
 
-    <button
-      v-if="!visible"
-      class="pi pi-align-justify p-2 absolute top-3 right-3 rounded-lg bg-blue-500 text-white"
-      @click="toggleVisible"
-    ></button>
+    <div v-if="!visible">
+      <div class="text-white absolute top-3 right-14 text-2xl">My Parks</div>
+      <button
+        class="pi pi-align-justify p-2 absolute top-3 right-3 rounded-lg bg-blue-500 text-white"
+        @click="toggleVisible"
+      ></button>
+    </div>
   </div>
 </template>
 

@@ -26,7 +26,6 @@
       </button>
     </div>
   </div>
-
   <UserLocationDisplay :user="user" />
   <div
     v-if="loaded"
