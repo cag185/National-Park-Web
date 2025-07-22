@@ -15,8 +15,11 @@ export const postUser = async (user: SignUp): Promise<SignUp> => {
         const response = await axios.post(usersRoute, user);
         return response.data;
     } catch (error) {
-        console.error('Error posting user:', error);
-        throw error;
+        // Attach the error to a custom object and throw it
+        throw {
+            message: 'Error posting user',
+            originalError: error,
+        };
     }
 };
 

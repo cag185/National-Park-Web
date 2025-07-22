@@ -45,6 +45,23 @@
     <div v-else>
       <div class=""></div>
     </div>
+
+    <!-- Error section -->
+    <div v-if="errors.length > 0" class="flex flex-col items-center">
+      <div
+        class="bg-white text-black p-4 rounded-lg mt-4 w-auto mx-auto ring-2 ring-red-500"
+        v-for="error in errors"
+        :key="error"
+      >
+        {{ error }}
+      </div>
+      <button
+        class="bg-green-500 text-white rounded-2xl p-2 w-1/4 mt-4 mx-auto"
+        @click="clearErrors"
+      >
+        Clear Errors
+      </button>
+    </div>
   </div>
 </template>
 
@@ -68,7 +85,18 @@ const submitSignUp = () => {
       console.log("User created successfully:", response);
     })
     .catch((error) => {
-      console.error("Error creating user:", error);
+      error?.originalError.response?.data?.errors.forEach((error) =>
+        addError((error ?? "Unknown error").toString())
+      );
     });
+};
+
+const errors = ref<string[]>([]);
+
+const addError = (error) => {
+  errors.value.push(error);
+};
+const clearErrors = () => {
+  errors.value = [];
 };
 </script>
