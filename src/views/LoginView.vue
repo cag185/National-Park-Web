@@ -47,27 +47,19 @@
     </div>
 
     <!-- Error section -->
-    <div v-if="errors.length > 0" class="flex flex-col items-center">
-      <div
-        class="bg-white text-black p-4 rounded-lg mt-4 w-auto mx-auto ring-2 ring-red-500"
-        v-for="error in errors"
-        :key="error"
-      >
-        {{ error }}
-      </div>
-      <button
-        class="bg-green-500 text-white rounded-2xl p-2 w-1/4 mt-4 mx-auto"
-        @click="clearErrors"
-      >
-        Clear Errors
-      </button>
-    </div>
+    <ErrorsComponent
+      :errors="errors"
+      :successes="successes"
+      @clearErrors="clear"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { postUser } from "@/Api/routes/routes";
+import ErrorsComponent from "@/components/ErrorsComponent.vue";
+import { useRouter } from "vue-router";
 
 const isSignUp = ref(true);
 
@@ -77,12 +69,22 @@ const signUpInput = ref({
   emailAddress: "",
 });
 
+// create a router instance.
+const router = useRouter();
+
 // Method for handling submit.
 const submitSignUp = () => {
+  // Clear the potential existing errors.
+  clear();
+
   // attempt to make an axios post request to the backend.
   postUser(signUpInput.value)
     .then((response) => {
       console.log("User created successfully:", response);
+      addSuccess("User created successfully");
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     })
     .catch((error) => {
       error?.originalError.response?.data?.errors.forEach((error: string) =>
@@ -92,11 +94,18 @@ const submitSignUp = () => {
 };
 
 const errors = ref<string[]>([]);
+const successes = ref<string[]>([]);
 
 const addError = (error: string) => {
   errors.value.push(error);
 };
-const clearErrors = () => {
+
+const addSuccess = (success: string) => {
+  successes.value.push(success);
+};
+
+const clear = () => {
   errors.value = [];
+  successes.value = [];
 };
 </script>
