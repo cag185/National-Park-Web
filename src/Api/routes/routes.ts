@@ -3,8 +3,8 @@ import { SignUp } from "../../models/SignUp";
 import { Login } from "../../models/Login";
 
 // Define routes to the backend API.
-const API_BASE_URL = 'http://localhost:3001/';
-// const API_BASE_URL = 'https://national-park-api-7gte.onrender.com/';
+// const API_BASE_URL = 'http://localhost:3001/';
+const API_BASE_URL = 'https://national-park-api-7gte.onrender.com/';
 
 // Route for the users.
 const usersRoute = `${API_BASE_URL}users`;
