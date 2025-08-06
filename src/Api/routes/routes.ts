@@ -9,7 +9,32 @@ const API_BASE_URL = 'https://national-park-api-7gte.onrender.com/';
 // Route for the users.
 const usersRoute = `${API_BASE_URL}users`;
 
-// Get Users.
+// Get User.
+export const getUserById = async (id: string): Promise<SignUp> => {
+    try {
+        const userResponse = await axios.get(`${usersRoute}/${id}`);
+        return userResponse.data;
+    } catch (error) {
+        // Attach the error to a custom object and throw it
+        throw {
+            message: 'Error getting user with ID: ' + id,
+            originalError: error,
+        };
+    }
+};
+
+export const getUserByEmail = async (email: string): Promise<SignUp> => {
+    try {
+        const userResponse = await axios.get(`${usersRoute}/email/${email}`);
+        return userResponse.data;
+    } catch (error) {
+        // Attach the error to a custom object and throw it
+        throw {
+            message: 'Error getting user with email: ' + email,
+            originalError: error,
+        };
+    }
+};
 
 // Post Users.
 export const postUser = async (user: SignUp): Promise<SignUp> => {

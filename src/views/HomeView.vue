@@ -74,11 +74,15 @@ import { useRouter } from "vue-router";
 
 // Pinia store.
 import { useLocationStore } from "@/stores/useLocationStore";
+import { useLoggedInUserStore } from "@/stores/useLoggedInUserStore";
+
 const locationStore = useLocationStore();
+// This will allow us to keep the logged in user properties across the app.
+const loggedInUser = useLoggedInUserStore();
 
 // DATA SECTION
 // Instantiate a user.
-const user = new User("Caleb");
+const user = loggedInUser.user ?? new User("Caleb", "Gibson", [], []);
 
 // Search text for the park search.
 const searchText = ref("");

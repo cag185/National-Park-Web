@@ -6,12 +6,14 @@
 import { Location } from './Location';
 
 export class User {
-    name: string
+    firstName?: string
+    lastName?: string
     existingLocations: Location[] = []
     newLocations: Location[] = []
 
-    constructor(name: string, existingLocations?: Location[], newLocations?: Location[]) {
-        this.name = name;
+    constructor(firstName: string, lastName: string, existingLocations?: Location[], newLocations?: Location[]) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.existingLocations = existingLocations || [];
         this.newLocations = newLocations || [];
     }

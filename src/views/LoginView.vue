@@ -111,11 +111,15 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { postUser, loginUser } from "@/Api/routes/routes";
+import { postUser, loginUser, getUserByEmail } from "@/Api/routes/routes";
 import ErrorsComponent from "@/components/ErrorsComponent.vue";
+import { useLoggedInUserStore } from "@/stores/useLoggedInUserStore";
 import { useRouter } from "vue-router";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { User } from "@/models/User";
 
 const isSignUp = ref(false);
+const loggedInUser = useLoggedInUserStore();
 
 const signUpInput = ref({
   firstName: "",
@@ -162,6 +166,12 @@ const submitLogIn = () => {
     .then((response) => {
       console.log("User logged in successfully:", response);
       addSuccess("User logged in successfully");
+
+      // Make sure to set the user in pinia to set it for the app.
+
+      // @TODO - make an API call the get the user and it's locations.
+      const user = getUserByEmail(logInInput.value.emailAddress);
+      setUser(user);
       setTimeout(() => {
         router.push("/");
       }, 1000);
@@ -187,5 +197,14 @@ const addSuccess = (success: string) => {
 const clear = () => {
   errors.value = [];
   successes.value = [];
+};
+
+// Set the user based on the login or signup request.
+// @TODO - replace any with USER once user matches DB user.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const setUser = (user: any) => {
+  // @TODO - Retrieve the user's locations using the API.
+  loggedInUser.setUser(user);
+  loggedInUser.setUserName(user.firstName, user.lastName);
 };
 </script>
