@@ -3,12 +3,13 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue'
 import MapView from '@/views/MapView.vue';
 import LoginView from '@/views/LoginView.vue';
+import LogoutView from '../views/LogoutView.vue';
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: '/',
+      path: '/feed',
       name: 'Home',
       component: HomeView,
     },
@@ -18,9 +19,14 @@ const router = createRouter({
       component: MapView,
     },
     {
-      path: '/login',
+      path: '/',
       name: 'Login',
       component: LoginView,
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: LogoutView
     }
   ],
 });

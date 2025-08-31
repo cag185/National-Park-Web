@@ -147,7 +147,7 @@ const submitSignUp = () => {
       console.log("User created successfully:", response);
       addSuccess("User created successfully");
       setTimeout(() => {
-        router.push("/");
+        router.push("/feed");
       }, 1000);
     })
     .catch((error) => {
