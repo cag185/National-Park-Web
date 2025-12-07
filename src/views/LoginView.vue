@@ -164,13 +164,23 @@ const submitLogIn = () => {
   console.log("Logging in user:", logInInput.value);
 
   // attempt to make an axios post request to the backend.
-  const user = loginUser(logInInput.value)
+  loginUser(logInInput.value)
     .then((response) => {
       // Make sure to set the user in pinia to set it for the app.
 
       // @TODO - make an API call the get the user and it's locations.
       // const user = getUserByEmail(logInInput.value.emailAddress);
-      setUser(user);
+      const loggedInUser = new User(
+        response.first_name,
+        response.last_name,
+        response.emailAddress,
+        response.newLocations,
+        response.existingLocations
+      );
+
+      console.log("Retrieved user data:", loggedInUser);
+      console.log("Login response:", response);
+      setUser(response);
       console.log("User logged in successfully:", response);
       addSuccess("User logged in successfully");
       setTimeout(() => {
@@ -207,5 +217,7 @@ const setUser = (user: any) => {
   // @TODO - Retrieve the user's locations using the API.
   loggedInUser.setUser(user);
   loggedInUser.setUserName(user.firstName, user.lastName);
+
+  console.log("Set logged in user in store:", loggedInUser.user);
 };
 </script>

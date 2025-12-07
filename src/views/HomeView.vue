@@ -26,7 +26,7 @@
       </button>
     </div>
   </div>
-  <UserLocationDisplay :user="user" />
+  <UserLocationDisplay :user="loggedInUser.user" />
   <div
     v-if="loaded"
     class="flex flex-col justify-center items-center pt-8 space-y-8"
@@ -80,8 +80,6 @@ const locationStore = useLocationStore();
 const loggedInUser = useLoggedInUserStore();
 
 // DATA SECTION
-// Instantiate a user.
-const user = ref(loggedInUser.user);
 
 // Search text for the park search.
 const searchText = ref("");
@@ -100,14 +98,14 @@ const getParkData = () => {
 };
 
 const addBeenThere = (location: Location) => {
-  user.value?.addExisitngLocation(location);
+  loggedInUser.user?.addExisitngLocation(location);
   // Add to pinia store.
   locationStore.addBeenThere(location);
 };
 
 // Want to go.
 const addWantTo = (location: Location) => {
-  user.value?.addNewLocation(location);
+  loggedInUser.user?.addNewLocation(location);
   // add to pinia store.
   locationStore.addWantToGo(location);
 };
@@ -122,12 +120,6 @@ onMounted(async () => {
     });
     // Load the store with the locations.
     locationStore.setAllLocations(parks);
-
-    // Try loading and assigning the user from the logged in user store.
-    const storedUser = loggedInUser.user;
-    if (storedUser) {
-      user.value = storedUser;
-    }
   } catch (error) {
     console.error("Error fetching parks:", error);
   }

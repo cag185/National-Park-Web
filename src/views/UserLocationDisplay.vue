@@ -15,7 +15,7 @@
           @click="toggleVisible"
         ></button>
         <div class="text-3xl text-white pt-2 font-bold mb-4">
-          {{ props.user.name }}'s Parks
+          {{ props.user?.firstName ?? "Unknown" }}'s Parks
         </div>
         <div class="text-2xl text-lime-600 font-bold">Want to Go's</div>
         <div
@@ -60,15 +60,15 @@ import { ref } from "vue";
 
 // Import the user from the main screen.
 const props = defineProps<{
-  user: User;
+  user: User | null;
 }>();
 
-const newLocations = ref<typeof props.user.newLocations>([]);
-const oldLocations = ref<typeof props.user.existingLocations>([]);
+const newLocations = ref<User["newLocations"]>([]);
+const oldLocations = ref<User["existingLocations"]>([]);
 
 // Initialize the locations with the user's new locations.
-newLocations.value = props.user.newLocations;
-oldLocations.value = props.user.existingLocations;
+newLocations.value = props.user?.newLocations ?? [];
+oldLocations.value = props.user?.existingLocations ?? [];
 
 const visible = ref(false);
 
