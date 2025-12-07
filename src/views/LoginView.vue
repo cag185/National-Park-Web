@@ -67,14 +67,14 @@
       <div class="w-1/2 lg:w-1/4">
         <input
           type="text"
-          v-model="signUpInput.emailAddress"
+          v-model="logInInput.emailAddress"
           placeholder="Email Address"
           class="bg-white rounded-2xl p-1 w-full text-center mt-4"
         />
 
         <input
           type="text"
-          v-model="signUpInput.password"
+          v-model="logInInput.password"
           placeholder="Password"
           class="bg-white rounded-2xl p-1 w-full text-center mt-4"
         />
@@ -161,19 +161,20 @@ const submitLogIn = () => {
   // Clear the potential existing errors.
   clear();
 
-  // attempt to make an axios post request to the backend.
-  loginUser(logInInput.value)
-    .then((response) => {
-      console.log("User logged in successfully:", response);
-      addSuccess("User logged in successfully");
+  console.log("Logging in user:", logInInput.value);
 
+  // attempt to make an axios post request to the backend.
+  const user = loginUser(logInInput.value)
+    .then((response) => {
       // Make sure to set the user in pinia to set it for the app.
 
       // @TODO - make an API call the get the user and it's locations.
-      const user = getUserByEmail(logInInput.value.emailAddress);
+      // const user = getUserByEmail(logInInput.value.emailAddress);
       setUser(user);
+      console.log("User logged in successfully:", response);
+      addSuccess("User logged in successfully");
       setTimeout(() => {
-        router.push("/");
+        router.push("/feed");
       }, 1000);
     })
     .catch((error) => {

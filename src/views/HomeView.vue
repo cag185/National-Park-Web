@@ -65,7 +65,6 @@
 <script setup lang="ts">
 // Imports.
 import { ref, onMounted, watch } from "vue";
-import { User } from "@/models/User";
 import { Location } from "@/models/Location";
 import UserLocationDisplay from "./UserLocationDisplay.vue";
 import { getParks } from "@/Api/parks";
@@ -82,7 +81,7 @@ const loggedInUser = useLoggedInUserStore();
 
 // DATA SECTION
 // Instantiate a user.
-const user = loggedInUser.user ?? new User("Caleb", "Gibson", [], []);
+const user = ref(loggedInUser.user);
 
 // Search text for the park search.
 const searchText = ref("");
@@ -101,14 +100,14 @@ const getParkData = () => {
 };
 
 const addBeenThere = (location: Location) => {
-  user.addExisitngLocation(location);
+  user.value?.addExisitngLocation(location);
   // Add to pinia store.
   locationStore.addBeenThere(location);
 };
 
 // Want to go.
 const addWantTo = (location: Location) => {
-  user.addNewLocation(location);
+  user.value?.addNewLocation(location);
   // add to pinia store.
   locationStore.addWantToGo(location);
 };
@@ -123,6 +122,12 @@ onMounted(async () => {
     });
     // Load the store with the locations.
     locationStore.setAllLocations(parks);
+
+    // Try loading and assigning the user from the logged in user store.
+    const storedUser = loggedInUser.user;
+    if (storedUser) {
+      user.value = storedUser;
+    }
   } catch (error) {
     console.error("Error fetching parks:", error);
   }

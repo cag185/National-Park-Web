@@ -3,8 +3,8 @@ import { SignUp } from "../../models/SignUp";
 import { Login } from "../../models/Login";
 
 // Define routes to the backend API.
-// const API_BASE_URL = 'http://localhost:3001/';
-const API_BASE_URL = 'https://national-park-api-7gte.onrender.com/';
+const API_BASE_URL = 'http://localhost:3000/';
+// const API_BASE_URL = 'https://national-park-api-7gte.onrender.com/';
 
 // Route for the users.
 const usersRoute = `${API_BASE_URL}users`;
@@ -25,6 +25,7 @@ export const getUserById = async (id: string): Promise<SignUp> => {
 
 export const getUserByEmail = async (email: string): Promise<SignUp> => {
     try {
+        console.log("Getting user with email: " + email);
         const userResponse = await axios.get(`${usersRoute}/email/${email}`);
         return userResponse.data;
     } catch (error) {
@@ -51,19 +52,28 @@ export const postUser = async (user: SignUp): Promise<SignUp> => {
 };
 
 // Login User.
+// export const loginUser = async (user: Login): Promise<Login> => {
+//     try {
+//         const response = await axios.get(usersRoute + "/login", {
+//             params: user,
+//         });
+//         return response.data;
+//     } catch (error) {
+//         // Attach the error to a custom object and throw it
+//         throw {
+//             message: 'Error posting user',
+//             originalError: error,
+//         };
+//     }
+// };
 export const loginUser = async (user: Login): Promise<Login> => {
     try {
-        const response = await axios.get(usersRoute + "/login", {
-            params: user,
-        });
+        const response = await axios.post(usersRoute + "/login", user);
         return response.data;
     } catch (error) {
-        // Attach the error to a custom object and throw it
-        throw {
-            message: 'Error posting user',
-            originalError: error,
-        };
+        throw { message: 'Error logging in user', originalError: error };
     }
 };
+
 
 // Update Users.
