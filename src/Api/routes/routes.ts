@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { SignUp } from "../../models/SignUp";
 import { Login } from "../../models/Login";
+import type { User } from '@/models/User';
 
 // Define routes to the backend API.
 const API_BASE_URL = 'http://localhost:3000/';
@@ -66,7 +67,7 @@ export const postUser = async (user: SignUp): Promise<SignUp> => {
 //         };
 //     }
 // };
-export const loginUser = async (user: Login): Promise<Login> => {
+export const loginUser = async (user: Login): Promise<User> => {
     try {
         const response = await axios.post(usersRoute + "/login", user);
         return response.data;
